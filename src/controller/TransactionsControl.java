@@ -4,12 +4,14 @@ import java.io.*;
 import java.util.*;
 
 public class TransactionsControl {
+    private static final String EXTRACT_FILE = "extract.csv";
     private static final String CURRENT_FILE = "current_accounts.csv";
     private static final String FILE_SAVINGS = "savings_accounts.csv";
-    private static final String EXTRACT_FILE = "extract.csv";
 
-    private boolean performTransaction(String tipoConta, String cpf, double valor, boolean isDeposito) {
-        String caminhoArquivo = tipoConta.equalsIgnoreCase("corrente") ? CURRENT_FILE : FILE_SAVINGS;
+
+    private boolean performTransaction(String tipoConta, String cpf, double valor, boolean isDeposito)
+    {
+        String pathFile = tipoConta.equalsIgnoreCase("corrente") ? CURRENT_FILE : FILE_SAVINGS;
 
         try {
             List<String[]> linhas = new ArrayList<>();
@@ -17,10 +19,11 @@ public class TransactionsControl {
             boolean userFound = false;
 
 
-            try (BufferedReader reader = new BufferedReader(new FileReader(caminhoArquivo))) {
-                String linha;
-                while ((linha = reader.readLine()) != null) {
-                    String[] valores = linha.split(",");
+            try (BufferedReader reader = new BufferedReader(new FileReader(pathFile))) {
+                String line;
+
+                while ((line = reader.readLine()) != null) {
+                    String[] valores = line.split(",");
                     if (valores[1].equals(cpf)) {
                         userFound = true;
 
@@ -48,8 +51,9 @@ public class TransactionsControl {
                 return false;
             }
 
-            try (BufferedWriter writer = new BufferedWriter(new FileWriter(caminhoArquivo))) {
-                for (String[] linha : linhas) {
+            try (BufferedWriter writer = new BufferedWriter(new FileWriter(pathFile))) {
+                for (String[] linha : linhas)
+                {
                     writer.write(String.join(",", linha));
                     writer.newLine();
                 }
@@ -58,17 +62,18 @@ public class TransactionsControl {
             registerExtract(tipoConta, cpf, valor, isDeposito, CurrentBalance);
             System.out.println("Transaction completed successfully!");
             return true;
-
-        } catch (IOException e) {
+        }
+        catch (IOException e) {
             System.err.println("Error accessing the file: " + e.getMessage());
             return false;
-        } catch (NumberFormatException e) {
+        }
+        catch (NumberFormatException e) {
             System.err.println("Error processing numeric values: " + e.getMessage());
             return false;
         }
     }
 
-    // Método para registrar o extrato
+    // registro d extrato
     private void registerExtract(String tipoConta, String CPF, double Valor, boolean isDeposito, double FinalSaldo) {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(EXTRACT_FILE, true))) {
             String OperationType = isDeposito ? "Depósito" : "Saque";
