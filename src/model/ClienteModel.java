@@ -5,16 +5,16 @@ import java.time.format.DateTimeFormatter;
 import java.time.LocalDate;
 
 public class ClienteModel {
-	protected String IdCliente;
-	protected String NameClient;
-	protected String CPFClient;
-    protected LocalDate dataNascClient;
-    protected String Agencia;
-    protected String Conta;
-    protected Double Saldo;
-    protected String TelefoneClient;
-    protected String EnderecoClient;
-    protected String passwordClient;
+	 String IdCliente;
+	 String NameClient;
+	 String CPFClient;
+    LocalDate dataNascClient;
+     String Agencia;
+     String Conta;
+     Double Saldo;
+     String TelefoneClient;
+     String EnderecoClient;
+     String passwordClient;
 
 
     public ClienteModel(
