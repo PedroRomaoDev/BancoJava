@@ -4,9 +4,9 @@ import java.io.*;
 import java.util.*;
 
 public class TransactionsControl {
-    private static final String EXTRACT_FILE = "extract.csv";
-    private static final String CURRENT_FILE = "current_accounts.csv";
-    private static final String FILE_SAVINGS = "savings_accounts.csv";
+    private static final String EXTRACT_FILE = "extract.csv"; // extrato
+    private static final String CURRENT_FILE = "current_accounts.csv"; // conta-corrente
+    private static final String FILE_SAVINGS = "savings_accounts.csv"; // conta poupança
 
 
     private boolean performTransaction(String tipoConta, String cpf, double valor, boolean isDeposito)
